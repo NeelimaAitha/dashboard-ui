@@ -2,23 +2,26 @@ import React from 'react';
 import { useSession } from 'next-auth/react';
 import LoadingSpinner from '../components/LoadingSpinner';
 
-const DashboardPage = () => {
-  const { data } = useSession();
-  if (!data) {
-    // Handle case where data is undefined or falsy
+const HomePage = () => {
+  const { data: sessionData, status } = useSession();
+
+  if (status === 'loading') {
     return <LoadingSpinner />;
   }
 
-  // Destructure data only if it's truthy
-  const { username, email } = data;
+  const { data } = sessionData || {}; // Safely access 'data' with default empty object
+
+  // Use 'data' properties safely
+  const username = data ? data.username : 'Guest';
+  const email = data ? data.email : 'aithaneelima@gmail.com';
 
   return (
     <div>
-      <h1>Welcome back, {username}</h1>
+      <h1>Welcome, {username}</h1>
       <p>Email: {email}</p>
-      {/* Other content for the dashboard page */}
+      {/* Other content for the home page */}
     </div>
   );
 };
 
-export default DashboardPage;
+export default HomePage;
