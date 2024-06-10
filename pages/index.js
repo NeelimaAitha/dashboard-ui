@@ -1,23 +1,24 @@
-// pages/index.js
-import Head from 'next/head';
-import Header from '../components/Header';
-import Sidebar from '../components/Sidebar';
-import MainContent from '../components/MainContent';
-import styles from '../styles/Home.module.css';
+import React from 'react';
+import { useSession } from 'next-auth/react';
+import LoadingSpinner from '../components/LoadingSpinner';
 
-export default function Home() {
+const DashboardPage = () => {
+  const { data } = useSession();
+  if (!data) {
+    // Handle case where data is undefined or falsy
+    return <LoadingSpinner />;
+  }
+
+  // Destructure data only if it's truthy
+  const { username, email } = data;
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>My Dashboard</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <Header />
-      <div className={styles.contentWrapper}>
-        <Sidebar />
-        <MainContent />
-      </div>
+    <div>
+      <h1>Welcome back, {username}</h1>
+      <p>Email: {email}</p>
+      {/* Other content for the dashboard page */}
     </div>
   );
-}
+};
+
+export default DashboardPage;

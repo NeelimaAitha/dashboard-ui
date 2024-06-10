@@ -1,20 +1,24 @@
-import { signIn, signOut, useSession } from 'next-auth/react'
+import React from 'react';
+import { useSession } from 'next-auth/react';
+import LoadingSpinner from '../components/LoadingSpinner';
 
-export default function Login() {
-  const { data: session } = useSession()
-
-  if (session) {
-    return (
-      <div>
-        <p>Welcome, {session.user.name}</p>
-        <button onClick={() => signOut()}>Sign out</button>
-      </div>
-    )
+const LoginPage = () => {
+  const { data } = useSession();
+  if (!data) {
+    // Handle case where data is undefined or falsy
+    return <LoadingSpinner />;
   }
+
+  // Destructure data only if it's truthy
+  const { username, email } = data;
 
   return (
     <div>
-      <button onClick={() => signIn('google')}>Sign in with Google</button>
+      <h1>Welcome, {username}</h1>
+      <p>Email: {email}</p>
+      {/* Other content for the login page */}
     </div>
-  )
-}
+  );
+};
+
+export default LoginPage;
