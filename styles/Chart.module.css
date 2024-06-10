@@ -1,4 +1,5 @@
 .chart {
+<<<<<<< HEAD
     width: 100%;
     height: 300px;
     border-radius: 8px;
@@ -8,3 +9,14 @@
     /* other chart styles */
   }
   
+=======
+  width: 100%;
+  height: 300px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 1rem;
+  /* other chart styles */
+}
+
+>>>>>>> 57abc440cbf7af639f74eed8b46d2c5fd4e9c305
